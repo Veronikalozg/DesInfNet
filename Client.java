@@ -19,6 +19,46 @@ class Client {
         this.setGender(gender);
     }
 
+    public Client(String clientData) {
+        // Ожидаемый формат строки: "id,surname,name,patronymic,total_services,phone,email,gender"
+        String[] data = clientData.split(",");
+
+        if (data.length < 6) {
+            throw new IllegalArgumentException("Неверный формат данных. Ожидается минимум 6 значений.");
+        }
+
+        if (data[0].trim().matches("\\d+")) {
+            this.setId(Integer.parseInt(data[0].trim()));
+            this.setSurname(data[1].trim());
+            this.setName(data[2].trim());
+            this.setPatronymic(data[3].trim());
+            if (data[4].trim().matches("\\d+")) {
+                this.setServices(Integer.parseInt(data[4].trim()));
+                this.setPhone(data[5].trim());
+                this.setEmail(data[6].trim());
+                this.setGender(data[7].trim());
+            } else {
+                this.setPhone(data[4].trim());
+                this.setEmail(data[5].trim());
+                this.setGender(data[6].trim());
+            }
+        } else {
+            this.setSurname(data[0].trim());
+            this.setName(data[1].trim());
+            this.setPatronymic(data[2].trim());
+            if (data[3].trim().matches("\\d+")) {
+                this.setServices(Integer.parseInt(data[3].trim()));
+                this.setPhone(data[4].trim());
+                this.setEmail(data[5].trim());
+                this.setGender(data[6].trim());
+            } else {
+                this.setPhone(data[3].trim());
+                this.setEmail(data[4].trim());
+                this.setGender(data[5].trim());
+            }
+        }
+    }
+
     public Integer getId() {
         return id;
     }
