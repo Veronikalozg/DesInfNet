@@ -203,12 +203,35 @@ class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+        return "Client {" +
+                "id=" + getId() +
+                ", surname='" + getSurname() + '\'' +
+                ", name='" + getName() + '\'' +
                 ", patronymic='" + patronymic + '\'' +
-                ", total_services='" + total_survices + '\'' +
+                ", total_services=" + total_services +
+                ", phone='" + getPhone() + '\'' +
+                ", email='" + email + '\'' +
+                ", gender=" + gender +
                 '}';
+    }
+
+    public String toShortString() {
+        return "Client {" +
+                "surname = '" + getSurname() + '\'' +
+                ", name = '" + getName() + '\'' +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPhone());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false; 
+        Client client = (Client) o;
+        return getPhone() == client.getPhone();
     }
 }
