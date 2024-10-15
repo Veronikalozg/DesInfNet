@@ -1,24 +1,29 @@
-class Client {
-    private Integer id;
-    private String name;
-    private String surname;
+class Client extends ClientShort {
     private String patronymic;
-    private Integer total_survices;
-    private String phone;
-    private String email;
+    private Integer total_services;
     private String gender;
+    private String email;
 
-    public Client(Integer id, String name, String surname, String patronymic, Integer total_survices, String phone, String email, String gender) {
-        this.setId(id);
-        this.setName(name);
-        this.setSurname(surname);
+
+    public Client(String surname, String name, String patronymic, String phone, String email, String gender) {
+        super(surname,name,phone);
         this.setPatronymic(patronymic);
-        this.setSurvices(total_survices);
-        this.setPhone(phone);
+        this.setServices(0);
         this.setEmail(email);
         this.setGender(gender);
     }
 
+    public Client(String surname, String name, String patronymic, Integer total_services, String phone, String email, String gender) {
+        this(surname,name, patronymic, phone, email, gender);
+        this.setServices(total_services);
+    }
+
+    public Client(Integer id, String surname, String name, String patronymic, Integer total_services, String phone, String email, String gender) {
+        this(surname,name, patronymic, total_services, phone, email, gender);
+        this.setId(id);
+    }
+
+    // Перегруженный конструктор, принимающий строку
     public Client(String clientData) {
         // Ожидаемый формат строки: "id,surname,name,patronymic,total_services,phone,email,gender"
         String[] data = clientData.split(",");
@@ -59,43 +64,20 @@ class Client {
         }
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        if (id == null || validateI(id)==true)
-            this.id = id;
-        else
-            throw new IllegalArgumentException("ID должен быть положительным числом.");
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        if (validateS(name)==true)
-            this.name = name;
-        else
-            throw new IllegalArgumentException("Неверный формат имени.");
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        if (validateS(surname)==true)
-            this.surname = surname;
-        else
-            throw new IllegalArgumentException("Неверный формат фамилии.");
-    }
-
+    // Геттеры
     public String getPatronymic() {
         return patronymic;
     }
 
+    public Integer getServices() {
+        return total_services;
+    }
+
+    public String getEmail() {return email;}
+    public String getGender() {return gender;}
+
+    // Сеттеры
     public void setPatronymic(String patronymic) {
         if (validateS(patronymic)==true)
             this.patronymic = patronymic;
@@ -103,91 +85,35 @@ class Client {
             throw new IllegalArgumentException("Неверный формат отчества.");
     }
 
-    public Integer getSurvices() {
-        return total_survices;
-    }
-
-    public void setSurvices(int total_survices) {
+    public void setServices(Integer total_services) {
         if (total_services==null || validateI(total_services)==true)
             this.total_services = total_services;
         else
             throw new IllegalArgumentException("Количество услуг не может быть отрицательным.");
     }
 
-  public String getPhone() {
-    return phone;
-  }
-
-  public void setPhone(String phone) {
-    if (validatePhone(phone)==true)
-            this.phone = phone;
-        else
-            throw new IllegalArgumentException("Неверный формат телефона.");
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    if (validateEmail(email)==true)
+    public void setEmail(String email) {
+        if (validateEmail(email)==true)
             this.email = email;
         else
             throw new IllegalArgumentException("Неверный формат почты.");
-  }
+    }
 
-  public String getGender() {
-    return gender;
-  }
-
-  public void setGender(String gender) {
-    if (validateS(gender)==true)
+    public void setGender(String gender) {
+        if (validateS(gender)==true)
             this.gender = gender;
         else
             throw new IllegalArgumentException("Пол не может быть пустым.");
-  }
-
-    public static boolean validateS(String value) {
-        if (value == null || value.trim().isEmpty() || !value.matches("^[A-Za-zА-Яа-яЁё\\s]+$"))
-            return false;
-        else
-            return true;
-    }
-
-    public static boolean validateI(int val) {
-        if (val < 0)
-            return false;
-        else
-            return true;
-    }
-
-    public static boolean validatePhone(String phone) {
-        if (phone == null || phone.isEmpty()) {
-            return false;
-        }
-
-        int digitCount = 0;
-        for (char c : phone.toCharArray()) {
-            if (Character.isDigit(c)) {
-                digitCount++;
-            }
-            else if (c != ' ' && c != '(' && c != ')' && c != '-' && c != '+') {
-                return false;
-            }
-        }
-        return digitCount >= 7 && digitCount <= 15;
     }
 
     public static boolean validateEmail(String email) {
         if (email == null || email.isEmpty()) {
             return false;
         }
-
         int atIndex = email.indexOf('@');
         if (atIndex <= 0 || atIndex != email.lastIndexOf('@')) {
             return false;
         }
-
         String domain = email.substring(atIndex + 1);
         if (domain.isEmpty() || !domain.contains(".")) {
             return false;
@@ -223,15 +149,10 @@ class Client {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(getPhone());
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false; 
+        if (o == null || getClass() != o.getClass()) return false;  
         Client client = (Client) o;
         return getPhone() == client.getPhone();
-    }
+    }    
 }
