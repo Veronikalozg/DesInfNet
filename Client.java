@@ -112,27 +112,7 @@ class Client extends ClientShort {
             return false;
         }
 
-        // Email должен содержать один символ '@'
-        int atIndex = email.indexOf('@');
-        if (atIndex <= 0 || atIndex != email.lastIndexOf('@')) {
-            return false;
-        }
-
-        // Проверка, что есть домен после '@'
-        String domain = email.substring(atIndex + 1);
-        if (domain.isEmpty() || !domain.contains(".")) {
-            return false;
-        }
-
-        // Проверка, что домен содержит хотя бы одну точку и доменная часть после последней точки
-        String topLevelDomain = domain.substring(domain.lastIndexOf('.') + 1);
-        if (topLevelDomain.length() < 2) {
-            return false;
-        }
-
-        return true;
-    }
-
+        
     @Override
     public String toString() {
         return "Client {" +
