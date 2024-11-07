@@ -74,8 +74,6 @@ class Client extends ClientShort {
     public Integer getServices() {
         return total_services;
     }
-
-    public String getEmail() {return email;}
     public String getGender() {return gender;}
 
     // Сеттеры
@@ -91,13 +89,6 @@ class Client extends ClientShort {
             this.total_services = total_services;
         else
             throw new IllegalArgumentException("Количество услуг не может быть отрицательным.");
-    }
-
-    public void setEmail(String email) {
-        if (validateEmail(email)==true)
-            this.email = email;
-        else
-            throw new IllegalArgumentException("Неверный формат почты.");
     }
 
     public void setGender(String gender) {
