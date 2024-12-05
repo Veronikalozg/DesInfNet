@@ -73,7 +73,7 @@ class Client extends ClientShort {
 
     public Integer getServices() {
         return total_services;
-    }
+    }//Геттер для получения общего количества услуг
 
     public String getEmail() {return email;}
     public String getGender() {return gender;}
@@ -83,7 +83,7 @@ class Client extends ClientShort {
         if (validateS(patronymic)==true)
             this.patronymic = patronymic;
         else
-            throw new IllegalArgumentException("Неверный формат отчества.");
+            throw new IllegalArgumentException("Неверный формат отчества.");//Сеттер для установки отчества.Если валидно, устанавливаем значение, иначе генерируем исключение.
     }
 
     public void setServices(Integer total_services) {
@@ -108,7 +108,7 @@ class Client extends ClientShort {
     }
 
     public static boolean validateEmail(String email) {
-        if (email == null || email.isEmpty()) {
+        if (email == null || email.isEmpty()) {//Проверка, что почта не null и не пустая.
             return false;
         }
 
@@ -144,7 +144,7 @@ class Client extends ClientShort {
                 ", phone='" + getPhone() + '\'' +
                 ", email='" + email + '\'' +
                 ", gender=" + gender +
-                '}';
+                '}';//Завершение формирования строкового представления, включая все поля клиента.
     }
 
     public String toShortString() {
