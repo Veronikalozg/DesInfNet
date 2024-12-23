@@ -8,7 +8,7 @@ class JsonClientStrategy implements ClientStrategy {
     }
 //Инициализация поля filename с переданным значением.
     public List<Client> readAll() {
-//Метод для чтения всех клиентов из файла и возврата списка клиентов.
+//а.Метод для чтения всех клиентов из файла и возврата списка клиентов.
         List<Client> clients = new ArrayList<>();
         File file = new File(filename);
 //Создание нового списка clients для хранения объектов Client и создание объекта File для работы с файлом с указанным именем.
@@ -50,7 +50,7 @@ class JsonClientStrategy implements ClientStrategy {
     }
 //Возврат списка клиентов, считанных из файла.
     public void saveAll(List<Client> clients) {
-//Метод для сохранения всех клиентов в файл.
+//b.Метод для сохранения всех клиентов в файл.
         JSONArray jsonArray = new JSONArray();
         for (Client client : clients) {
             jsonArray.put(client.toJson());
