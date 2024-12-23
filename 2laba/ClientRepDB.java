@@ -7,7 +7,7 @@ class ClientRepDB {
         this.db = DatabaseConnection.getInstance(dbName, user, password, host, port);
 //Инициализация поля db с помощью метода getInstance класса DatabaseConnection, который создает или возвращает существующее соединение с базой данных.
     public Client getById(int clientId) {
-//Метод для получения клиента из базы данных по его идентификатору (clientId).
+//A..Метод для получения клиента из базы данных по его идентификатору (clientId).
         Client client = null;
 //Инициализация переменной client, которая будет хранить найденного клиента.
         String query = "SELECT * FROM clients WHERE id = ?";
@@ -41,7 +41,7 @@ class ClientRepDB {
         return null;
 //Если клиент не найден, возвращаем null.
     public List<Client> getKNSortList(int k, int n) {
-//Метод для получения списка клиентов с пагинацией, где k – это номер страницы, а n – количество клиентов на странице.
+//B..Метод для получения списка клиентов с пагинацией, где k – это номер страницы, а n – количество клиентов на странице.
         List<Client> clients = new ArrayList<>();
 //Создание списка для хранения клиентов.
         String sql = "SELECT * FROM clients ORDER BY id OFFSET ? LIMIT ?";
@@ -76,7 +76,7 @@ class ClientRepDB {
         return clients;
 //Возвращение списка клиентов.
     public void addClient(Client client) throws SQLException {
-//Метод для добавления нового клиента в базу данных.
+//C..Метод для добавления нового клиента в базу данных.
         if (!isUnique(client.getPhone())) {
             throw new SQLException("Клиент с таким телефоном уже существует!");
         }
@@ -106,7 +106,7 @@ class ClientRepDB {
     }
 //Закрытие блока try.
     public boolean replaceById(int clientId, Client newClient) throws SQLException {
-//Метод для замены информации о клиенте по идентификатору.
+//D..Метод для замены информации о клиенте по идентификатору.
         if (!isUnique(newClient.getPhone())) {
             throw new SQLException("Нельзя заменить клиента: клиент с таким телефоном уже существует!");
         }
@@ -129,7 +129,7 @@ class ClientRepDB {
         }
 //Выполнение обновления и возврат true, если обновление произошло успешно (изменено больше 0 записей).
     public void deleteById(int clientId) {
-//Метод для удаления клиента по его идентификатору.
+//E..Метод для удаления клиента по его идентификатору.
         String sql = "DELETE FROM clients WHERE id = ?";
 //SQL-запрос для удаления клиента из базы данных.
         try (Connection conn = db.getConnection();
@@ -143,7 +143,7 @@ class ClientRepDB {
         }
 //Обработка исключений.
     public int getCount() {
-//Метод для получения количества клиентов в базе данных.
+//F..Метод для получения количества клиентов в базе данных.
         String sql = "SELECT COUNT(*) FROM clients";
 //SQL-запрос для подсчета клиентов.
         try (Connection conn = db.getConnection();
