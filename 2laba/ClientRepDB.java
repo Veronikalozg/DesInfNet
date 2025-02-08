@@ -154,3 +154,17 @@ class ClientRepDB implements IClientRepository{
         }
         return 0;
     }
+  private boolean isUnique(String phone) {
+        String sql = "SELECT COUNT(*) FROM clients WHERE phone = ?";
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, phone);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) == 0; // Если 0, значит уникален
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
